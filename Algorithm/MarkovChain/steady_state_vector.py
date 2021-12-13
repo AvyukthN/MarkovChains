@@ -1,4 +1,4 @@
-from MarkovChain.markov_chain import MarkovChain
+# from MarkovChain.markov_chain import MarkovChain
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np

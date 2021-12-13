@@ -1,14 +1,13 @@
-from MarkovChain.steady_state_vector import steady_state_vector
-from MarkovChain.markov_chain import MarkovChain
+from Algorithm.MarkovChain.steady_state_vector import steady_state_vector
+from Algorithm.MarkovChain.steady_state_vector import visualize 
+from Algorithm.MarkovChain.markov_chain import MarkovChain
 import numpy as np
 import matplotlib.pyplot as plt
 
-if __name__ == '__main__':
-    mc = MarkovChain()
-
+def construct_transition_matrix(move_freq: list, moves: list) -> np.ndarray:
     prob_hash = {}
-    move_freq = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
-    moves = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    move_freq = move_freq
+    moves = moves
     sum_moves = sum(move_freq)
 
     for i in range(len(moves)):
@@ -34,6 +33,16 @@ if __name__ == '__main__':
     
     transition_matrix = np.array(mc.transition_matrix())
 
+    return transition_matrix
+
+if __name__ == '__main__':
+    mc = MarkovChain()
+    
+    move_freq = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
+    moves = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+    transition_matrix = construct_transition_matrix(move_freq, moves)
+
     starting_vector = [0 for i in range(39)]
     starting_vector[28] = 1
 
@@ -43,6 +52,8 @@ if __name__ == '__main__':
     for i in range(len(eigen_vector)):
         x.append(i+1) 
         print(f'{i+1} {eigen_vector[i]}')
+    
+    nodes = mc.get_nodes()
+    edges = [(edge[0], edge[1][0]) for edge in mc.get_edges()]
 
-    plt.hist(x, eigen_vector)
-    plt.show()
+    visualize(nodes, edges, './assets/graphs/MonopolyGraph.png')
