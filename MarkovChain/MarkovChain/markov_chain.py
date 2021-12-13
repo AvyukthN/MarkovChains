@@ -12,7 +12,7 @@ class MarkovChain:
             starting = edge[0]
             ending = edge[1][0]
             cost  = edge[1][1]
-
+            
             matrix[starting-1][ending-1] = cost
 
         return matrix
